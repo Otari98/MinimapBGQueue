@@ -1,0 +1,59 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Script file="main.lua"/>
+    <Button name="MBGQFrame" movable="true" toplevel="true" parent="Minimap" clampedToScreen="true">
+        <Size x="33" y="33"/>
+        <Anchors>
+            <Anchor point="BOTTOMLEFT">
+                <Offset x="-11" y="10"/>
+            </Anchor>
+        </Anchors>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="MBGQFrameIcon" file="Interface\Icons\ability_dualwield">
+                    <Size x="18" y="18"/>
+                    <Anchors>
+                        <Anchor point="CENTER">
+                            <Offset x="-1" y="2"/>
+                        </Anchor>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="BORDER">
+                <Texture name="MBGQFrameBorder" file="Interface\Minimap\MiniMap-TrackingBorder">
+                    <Size x="52" y="52"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
+        <Frames>
+            <Frame name="MBGQFrameDropDown" inherits="UIDropDownMenuTemplate" id="1" hidden="true">
+                <Scripts>
+                    <OnLoad>
+                        UIDropDownMenu_Initialize(this, MBGQ.DropDownInitialize, "MENU")
+                    </OnLoad>
+                </Scripts>
+            </Frame>
+        </Frames>
+        <Scripts>
+            <OnLoad>
+                this:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+                this:RegisterForDrag("LeftButton")
+                this:SetFrameLevel(Minimap:GetFrameLevel() + 2)
+            </OnLoad>
+            <OnDragStart>
+                this:LockHighlight()
+                this:StartMoving()
+            </OnDragStart>
+            <OnDragStop>
+                this:UnlockHighlight()
+                this:StopMovingOrSizing()
+            </OnDragStop>
+            <OnClick>
+                MBGQ.OnClick(this, arg1)
+            </OnClick>
+        </Scripts>
+    </Button>
+</Ui>

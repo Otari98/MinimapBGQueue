@@ -1,0 +1,7 @@
+## Interface: 11200
+## Title: MinimapBGQueue
+## Notes: Easy queue from a minimap button.
+## Author: Spit
+## Version: 1.0
+
+main.xml
